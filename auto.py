@@ -55,8 +55,9 @@ class db_auto:
         try:
             """result sql injection """
             mysql_result.execute(sql_dict)
+            self.mysql_new.commit()
             self.mysql_result = mysql_result
-            return True
+            return mysql_result
         except:
             
             mysql_result.execute("SELECT DATABASE()")
@@ -143,6 +144,17 @@ class db_auto:
             print(" ]")
     def table_insert(self,table_name,column_name = []):
         """
+        column_array = [["hello","varchar(100) not null"]]
+
+        table_insert("table",column_array)
+
+        SQL = select hello from table;
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        |       hello      |
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        not data 
+
+
         table_insert() = 테이블 생성
 
         table_name = 원하는 테이블 이름
@@ -190,6 +202,24 @@ class db_auto:
 
     def solumn_insert(self,table_name,solunm_name = [],solumn_value = []):
         """
+        예) 
+        array_name = ["hello"]
+
+        array_value = ["world"]
+
+        solum_insert("test_table",array_name,array_value)
+
+        SQL = select test_table from test_table;
+
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        |      hello       |
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        |      world       |
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        
+        
+        
+        
         solumn_insert() = 컬럼 데이터 추가
 
         table_name = 컬럼 추가할 테이블 이름
@@ -248,6 +278,20 @@ class db_auto:
 
     def column_update(self,table_name,column_return = [],if_column = []):
         """
+        SQL = select test1 from table_name;
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        |      test1       | 
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        |      HELLO       |
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        예)
+        update_array = [["test1","world"]]
+
+        update_return = [["test1","HELLO"]]
+
+        column_update("table_name",update_array,update_return)
+        
+        
         컬럼 업데이트
 
         [[]]
@@ -353,28 +397,39 @@ class db_auto:
     def column_delect(self,table_name,delete_data = [],data_if=None,asksend = None):
         
         """
-        컬럼 업데이트
+        예) 현 데이터 형식 
+        SQL = SELECT email,password FROM member;
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        |         email         |      password    |
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        |       a@gmail.com     |        NULL      |
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        |     world@gmail.com   |        NULL      |
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        |     hello@gmail.com   |        NULL      |
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        |  helloworld@gmail.com |        NULL      |
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        |         NULL          |       @c#fs#     |
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        |         NULL          |       2hTg$      |
+        ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
-        [[]]
-        이중 배열을 이용해야됨
+        함수 사용 예) data_if 를 하지않을경우
 
-        table_name = 업데이트 하고자하는 테이블 이름
+        not_data_if = [["email","a@gmail.com","hello@gmail.com","world@gmail.com","helloworld@gmail.com"],["password","@c#fs#","2hTg$"]]        
+        
+        column_delect("member",not_data_if,asksend="")
 
-        column_return = 변경할려는 컬럼과 값
-        -> type = list
-        예 ) array =[[변경할려는 컬럼,변경할려는 컴럼의 값],[변경할려는 컬럼,변경할려는 컬럼의값]]
-        예 ) -> "update table_name set hello = "world" where 변경할려는 컬럼의 조건"
-                                        ↑          ↑
-                            변경할려는 컬럼 이름    변경할려는 컬럼의 값
+        예) data_if 를 하용할경우
 
-        if_column = 변경할려는 컬럼값의 조건
-        -> type = list
-        예 ) array_if = [[변경할려는 조건 컬럼의 이름,변경할려는 조건 컬럼의 값]]
-        예 -> "update table_name set 변경할려는 컬럼값 where hello = 'hello'" ← 조건 컬럼의 값
-                                                            ↑               
-                                                            조건 컬럼의 이름
-        column_update(컬럼 변경할려는 테이블,변경할려는 컬럼과 컬럼값이 들어있는 리스트 변수,변경할려는 행의 컬럼과 값이있는 조건의 리스트 변수 )
+        yes_data_if = [["email","a@gmail.com","or"],["email","world@gmail.com","or"],["email","hello@gmail.com","or"],["email","helloworld@gmail.com","or"],["password","@c#fs#","or"],["password","2hTg$"]]
 
+        column_delect("member",yes_data_if,data_if="and_or",asksend="")
+        
+         data_if = and or 형식 아니면 in() 형식 선택 
+
+        asksend = 데이터 손실 안전을 위해 묻는다.
 
         """
         mysql_delete = self.mysql_new.cursor()
