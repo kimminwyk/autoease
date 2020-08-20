@@ -1,7 +1,7 @@
 """mysql management auto"""
 import sys,os
 from try_result import *
-sys.path.insert(0,"c:\python38\lib\site-packages")
+#sys.path.insert(0,"c:\python38\lib\site-packages")
 import pymysql
 class db_auto:
     def __init__(self,mysql_host,mysql_user,mysql_passwd,mysql_db= None,type_decision=None):
@@ -74,7 +74,7 @@ class db_auto:
         try:
             sql_db.execute(f"use {db_name}")
 
-            print(connectdb)
+            print(connect_db)
         except:
             #잘못된 데이터베이스 이름
             print(not_value_key_db)
@@ -538,7 +538,50 @@ class db_auto:
                 self.mysql_new.commit()
 
 
+    def db_delete(self,db_name):
+        mysql_db = self.mysql_new.cursor()
                 
+        if db_name:
+            sql = f"DROP  DATABASE {db_name}"
+            #print(sql)
+            try:
+                mysql_db.execute(sql)
+                self.mysql_new.commit()
+            except:
+                print("not database name")
+        else:
+            return False
+    def table_delete(self,table_name):
+        mysql_table = self.mysql_new.cursor()
+
+        if table_name:
+            try:
+                sql = f"DROP TABLE {table_name}"
+                
+                mysql_table.execute(sql)
+                self.mysql_new.commit()
+            except:
+                mysql_table.execute("SELECT DATABASE()")
+
+                for i in mysql_table:
+                    if i['DATABASE()'] == None:
+                        #데이터베이스 접근 안되있음
+                        print(not_db)
+                    else:
+                        print(syntax_insert_sentence)
+
+    def solumn_delete(self,table_name,solunm_name):
+        mysql_solumn = self.mysql_new.cursor()
+
+        if table_name and solunm_name:
+            sql = f"ALTER TABLE {table_name} DROP {solunm_name}"
+            try:
+                mysql_solumn.execute(sql)
+
+                self.mysql_new.commit()
+            except:
+                print("not table name or solunm_name")
+
     def file_remove(file_location):
         """
         file_remove() -> 삭제할려는 파일 또는 디렉터리
