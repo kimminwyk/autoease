@@ -611,6 +611,37 @@ class db_auto:
                 self.mysql_new.commit()
             except:
                 print("not table name or solunm_name")
+    def solumn_select(self,select,table_name,type_double = None):
+        mysql_select = self.mysql_new.cursor()
+        print(f"SELECT {select} FROM {table_name}")
+        mysql_select.execute(f"SELECT {select} FROM {table_name}")
+        self.mysql_new.commit()
+        if type_double is not None:
+            result = [i for i in mysql_select]
+            return result
+        else:
+            return mysql_select
+
+    def table_select(self,table_name,type_double = None):
+        mysql_table = self.mysql_new.cursor()
+        mysql_table.execute("SHOW TABLES")
+        if type_double is not None:
+            result = [i for i in mysql_table]
+            return result
+        else:
+            return mysql_table
+
+    def databases(self,type_double= None):
+        mysql_db = self.mysql_new.cursor()
+
+        mysql_db.execute("SHOW DATABASES")
+
+        if type_double is not None:
+            result = [i for i in mysql_db]
+            return result
+        else:
+            return mysql_db
+        
 
     def file_remove(file_location):
         """
