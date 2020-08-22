@@ -4,9 +4,11 @@ from try_result import *
 #sys.path.insert(0,"c:\python38\lib\site-packages")
 import pymysql
 class db_auto:
-    def __init__(self,mysql_host,mysql_user,mysql_passwd,mysql_db= None,type_decision=None):
+    def __init__(self,mysql_host = None,mysql_port = None,mysql_user = None,mysql_passwd = "",mysql_db= None,type_decision=None):
         """
         mysql_host = 연결할려는 mysql 의 호스트
+
+        mysql_port = 연결할려는 mysql 의 포트
 
         mysql_user = 연결할려는 mysql 의 name
 
@@ -18,29 +20,57 @@ class db_auto:
 
         """
         """mysql host user passwd db connect"""
-        if mysql_db != "":
+        if mysql_port != "":
 
-            if type_decision == "dict":
+            if mysql_db != "":
 
-                """mysql return trpe dict"""
-                self.mysql_new = pymysql.connect(host=mysql_host, user=mysql_user, passwd=mysql_passwd, db=mysql_db,cursorclass=pymysql.cursors.DictCursor)
+                if type_decision == "dict":
+
+                    """mysql return trpe dict"""
+                    self.mysql_new = pymysql.connect(host=mysql_host,port=mysql_port, user=mysql_user, passwd=mysql_passwd, db=mysql_db,cursorclass=pymysql.cursors.DictCursor)
+
+                else:
+
+                    """mysql return type tuple"""
+                    self.mysql_new = pymysql.connect(host=mysql_host,port=mysql_port, user=mysql_user, passwd=mysql_passwd, db=mysql_db)
 
             else:
 
-                """mysql return type tuple"""
-                self.mysql_new = pymysql.connect(host=mysql_host, user=mysql_user, passwd=mysql_passwd, db=mysql_db)
+                if type_decision == "dict":
 
+                    """mysql return trpe dict"""
+                    self.mysql_new = pymysql.connect(host=mysql_host,port=mysql_port, user=mysql_user, passwd=mysql_passwd,cursorclass=pymysql.cursors.DictCursor)
+
+                else:
+
+                    """mysql return type tuple"""
+                    self.mysql_new = pymysql.connect(host=mysql_host,port=mysql_port, user=mysql_user, passwd=mysql_passwd)
         else:
 
-            if type_decision == "dict":
+            if mysql_db != "":
 
-                """mysql return trpe dict"""
-                self.mysql_new = pymysql.connect(host=mysql_host, user=mysql_user, passwd=mysql_passwd,cursorclass=pymysql.cursors.DictCursor)
+                if type_decision == "dict":
+
+                    """mysql return trpe dict"""
+                    self.mysql_new = pymysql.connect(host=mysql_host, user=mysql_user, passwd=mysql_passwd, db=mysql_db,cursorclass=pymysql.cursors.DictCursor)
+
+                else:
+
+                    """mysql return type tuple"""
+                    self.mysql_new = pymysql.connect(host=mysql_host, user=mysql_user, passwd=mysql_passwd, db=mysql_db)
 
             else:
 
-                """mysql return type tuple"""
-                self.mysql_new = pymysql.connect(host=mysql_host, user=mysql_user, passwd=mysql_passwd)
+                if type_decision == "dict":
+
+                    """mysql return trpe dict"""
+                    self.mysql_new = pymysql.connect(host=mysql_host, user=mysql_user, passwd=mysql_passwd,cursorclass=pymysql.cursors.DictCursor)
+
+                else:
+
+                    """mysql return type tuple"""
+                    self.mysql_new = pymysql.connect(host=mysql_host, user=mysql_user, passwd=mysql_passwd)
+
 
     def mysql_query(self,sql_dict):
         """
