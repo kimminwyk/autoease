@@ -1,4 +1,4 @@
-# autoease
+# autoease 1.1
 pymysql 모듈을 이용해 조금 더 간략하고 조금더 쉽게 사용할수있게 만들어보았습니다.
 
 # autoease 1 버전
