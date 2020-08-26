@@ -1,7 +1,7 @@
 # autoease
 pymysql 모듈을 이용해 조금 더 간략하고 조금더 쉽게 사용할수있게 만들어보았습니다.
 
-autoease 1 버전
+# autoease 1 버전
 
 ![image](gif/test.gif)
 
@@ -45,7 +45,7 @@ column_delect(table_name,delete_data = [],data_if=None,asksend = None)
 file_remove(file_location)
 #원하는 파일 또는 디렉터리 삭제
 
-autoease 1.1버전
+# autoease 1.1버전
 
 solumn_delete(self,table_name,solunm_name)
 #컬럼 삭제
