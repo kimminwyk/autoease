@@ -44,3 +44,17 @@ column_delect(table_name,delete_data = [],data_if=None,asksend = None)
 
 file_remove(file_location)
 #원하는 파일 또는 디렉터리 삭제
+
+autoease 1.1버전
+
+solumn_delete(self,table_name,solunm_name)
+#컬럼 삭제
+
+databases(self,type_double= None)
+#db 조회
+
+table_select(self,table_name,type_double = None)
+#테이블 조회
+
+solumn_select(self,select,table_name,type_double = None)
+#컬럼 조회
