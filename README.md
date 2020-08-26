@@ -6,6 +6,7 @@ pymysql 모듈을 이용해 조금 더 간략하고 조금더 쉽게 사용할�
 ![image](gif/test.gif)
 
 db_auto(mysql_host,mysql_user,mysql_passwd,mysql_db= None,type_decision=None)
+
 #mysql에 접속
 
 
