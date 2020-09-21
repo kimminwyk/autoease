@@ -1,6 +1,6 @@
 """mysql management auto"""
 import sys,os
-from try_result import *
+from .try_result import *
 #sys.path.insert(0,"c:\python38\lib\site-packages")
 import pymysql
 class db_auto:
@@ -30,7 +30,7 @@ class db_auto:
                     self.mysql_new = pymysql.connect(host=mysql_host,port=mysql_port, user=mysql_user, passwd=mysql_passwd, db=mysql_db,cursorclass=pymysql.cursors.DictCursor)
 
                 else:
-
+                    
                     """mysql return type tuple"""
                     self.mysql_new = pymysql.connect(host=mysql_host,port=mysql_port, user=mysql_user, passwd=mysql_passwd, db=mysql_db)
 
@@ -62,7 +62,7 @@ class db_auto:
             else:
 
                 if type_decision == "dict":
-
+                        
                     """mysql return trpe dict"""
                     self.mysql_new = pymysql.connect(host=mysql_host, user=mysql_user, passwd=mysql_passwd,cursorclass=pymysql.cursors.DictCursor)
 
@@ -72,7 +72,7 @@ class db_auto:
                     self.mysql_new = pymysql.connect(host=mysql_host, user=mysql_user, passwd=mysql_passwd)
 
 
-    def mysql_query(self,sql_dict):
+    def mysql_query(self,sql_dict,json = None):
         """
 
         sql_dict = 실행하고싶은 sql 명령어
@@ -87,6 +87,7 @@ class db_auto:
             mysql_result.execute(sql_dict)
             self.mysql_new.commit()
             self.mysql_result = mysql_result
+            print(1)
             return mysql_result
         except:
             
