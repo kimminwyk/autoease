@@ -1,56 +1,111 @@
 # autoease 1.1
+
 pymysql 모듈을 이용해 조금 더 간략하고 조금더 쉽게 사용할수있게 만들어보았습니다.
 
-# autoease 1 버전
+<br>
 
-![image](gif/test.gif)
++ ##### MySQL Connect
+ 
+    ```py
+    db_auto(mysql_host = "host", mysql_port = "port", mysql_user = "user", mysql_passwd = "password", type_decision = "dict")
 
-db_auto(mysql_host,mysql_user,mysql_passwd,mysql_db= None,type_decision=None)#mysql에 접속
+    ex) db_auto(mysql_host = "localhost",mysql_user = "root",mysql_passwd = "toor", type_decision = "dict")
+    ```
+<br>
 
++ ##### MySQL Command execute
+    ```py
+    mysql_query("SQL Command")
 
-mysql_query(sql_dict)
-#sql 구문을 직접 실행
+    ex) mysql_query("select * from member")
+    ```
 
+<br>
 
-connect_db(db_name)
-#원하는 db 접근
++ ##### MySQL DATABASE Connect
 
+    ```py
+    connect_db(db_name)
 
-special_characters(table,not_column = [],special_check = None)
-#원하는 테이블 안에있는 컬럼 데이터들을 기본 특수문자들로 검사
+    ex) connect_db("test")
+    ```
 
+<br>
 
-table_insert(table_name,column_name = [])
-#table 생성
++ ##### MySQL TABLE CREATE
+  
+    ```py
+    table_insert(table_name,column_name = [])
+    
+    ex) table_insert("testtable", [["id","varchar(100)","NOT NULL"],["pw","varchar(100)","NOT NULL"]])
+    ```
 
+<br>
 
-solumn_insert(table_name,solunm_name = [],solumn_value = [])
-#컬럼 데이터 생성
++ ##### MySQL TABLE DATA INSERT
 
+    ```py
+    solumn_insert(table_name,solunm_name = [],solumn_value = [])
+    
+    ex) solumn_insert("testtable",['id','pw'], ["guest","password"])
+    ```
 
-column_update(table_name,column_return = [],if_column = [])
-#컬럼 업데이트
+<br>
 
++ ##### MySQL DATA Update
 
+    ```py
+    column_update(table_name,column_return = [],if_column = [])
 
-column_delect(table_name,delete_data = [],data_if=None,asksend = None)
-#컬럼 삭제
+    ex) column_update("testtable", ["id","testid"], ["id": "id"])
+    ```
 
+<br>
 
++ ##### MySQL DATA DELETE
 
-file_remove(file_location)
-#원하는 파일 또는 디렉터리 삭제
+    ```py
+    column_delect(table_name,delete_data = [],data_if=None,asksend = None)
 
-# autoease 1.1버전
+    ex ) column_delete("testtable",["columnname","testdata"],"and_or","")
+    ```
 
-solumn_delete(self,table_name,solunm_name)
-#컬럼 삭제
+<br> 
 
-databases(self,type_double= None)
-#db 조회
++ ##### MySQL TABLE In Column DELETE
 
-table_select(self,table_name,type_double = None)
-#테이블 조회
+    ```py
+    solumn_delete(table_name,solunm_name)
 
-solumn_select(self,select,table_name,type_double = None)
-#컬럼 조회
+    ex) solumn_delete("testtable","columnonename")
+    ```
+
+<br> 
+
++ ##### MySQL database 조회
+
+    ```py
+    databases(type_double)
+
+    ex) databases("")
+    ```
+
+<br> 
+
++ ##### MySQL TABLE 조회
+    
+    ```py
+    table_select(type_double)
+
+    ex) table_select("")
+    ```
+
+<br> 
+
++ ##### MySQL TABLE data 조회
+
+    ```py
+    solumn_select(select , table_name , type_double)
+
+    ex) solumn_select("*", "testtable","")
+    ```

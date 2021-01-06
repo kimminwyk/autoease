@@ -623,7 +623,7 @@ class db_auto:
         else:
             return mysql_select
 
-    def table_select(self,table_name,type_double = None):
+    def table_select(self,type_double = None):
         mysql_table = self.mysql_new.cursor()
         mysql_table.execute("SHOW TABLES")
         if type_double is not None:
